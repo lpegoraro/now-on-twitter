@@ -8,6 +8,7 @@ class FeedApplicationTests {
 
     @Test
     void contextLoads() {
+        // empty by design, loads context and fails if springs fail to wire something.
     }
 
 }
