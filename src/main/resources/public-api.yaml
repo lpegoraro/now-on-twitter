@@ -25,7 +25,7 @@ paths:
         - bearerAuth: []
       description: |
         Create new feed schedule, it will gather based on the cron the amount of data. The cron must be minute based, 
-        and minute should not be over than 59
+        and minute should not be over than 1h
       requestBody:
         content:
           application/json:
