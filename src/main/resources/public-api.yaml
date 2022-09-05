@@ -1,0 +1,93 @@
+openapi: 3.1.0
+info:
+  title: Now on Twitter
+  description: |
+    Allows to keep up with the latest tweets, fetching information on Twitter, based on query tags in a cron-based 
+    schedule.
+  version: 1.0.0-A
+paths:
+  /auth:
+    post:
+      description: | 
+        Based on the name you provide, all feed will fall under your name in searches. Will hash within storage.
+      requestBody:
+        $ref: '#/components/schemas/AuthRequest'
+      responses:
+        '200':
+          description: Will return a token that will be on for 24h or 7d based on extent provided
+  /feed:
+
+    post:
+      description: |
+        Create new feed schedule, it will gather based on the cron the amount of data. The cron must be minute based, 
+        and minute should not be over than 59
+      requestBody:
+        $ref: '#/components/schemas/FeedRequest'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/NewFeedResponse'
+    get:
+      description: |
+        Consume feed gathering of information from all the feed created by the authenticated user, filters can be 
+        applied to reduce scope of search.
+      parameters:
+        - name: label
+          in: query
+          description: Identification of label, will error if duplicated for the same user.
+          schema:
+            type: string
+        - name: "filter-tags"
+          in: query
+          description: Query tags, can be multiple, matching any.
+          explode: true
+          schema:
+            - type: array
+              items:
+                type: string
+        - name: debug
+          in: query
+          description: Internal usage, only checks instead of consuming, will always return only one record, based on query params.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Display information gathered and reset counters.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  $ref: '#/components/schemas/FeedBasket'
+components:
+  schemas:
+      FeedBasket:
+        type: object
+        properties:
+          tweetCount:
+            type: integer
+            format: int32
+            minimum: 0
+          searchHits:
+            type: integer
+            format: int32
+            minimum: 0
+      FeedRequest:
+        type: object
+        properties:
+          label:
+            type: string
+            format: label
+          queryTags:
+            type: array
+            items:
+              type: string
+          cron:
+            type: string
+            format: cron-expression
+
