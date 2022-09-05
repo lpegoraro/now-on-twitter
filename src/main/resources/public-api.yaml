@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: "3.0.0"
 info:
   title: Now on Twitter
   description: |
@@ -11,27 +11,32 @@ paths:
       description: | 
         Based on the name you provide, all feed will fall under your name in searches. Will hash within storage.
       requestBody:
-        $ref: '#/components/schemas/AuthRequest'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
       responses:
         '200':
-          description: Will return a token that will be on for 24h or 7d based on extent provided
+          description: | 
+            Will return a token that will be on for 24h or 7d based on extent provided
   /feed:
-
     post:
+      security:
+        - bearerAuth: []
       description: |
         Create new feed schedule, it will gather based on the cron the amount of data. The cron must be minute based, 
         and minute should not be over than 59
       requestBody:
-        $ref: '#/components/schemas/FeedRequest'
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FeedRequest'
       responses:
         '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                $ref: '#/components/schemas/NewFeedResponse'
+          description: feed created
     get:
+      security:
+        - bearerAuth: []
       description: |
         Consume feed gathering of information from all the feed created by the authenticated user, filters can be 
         applied to reduce scope of search.
@@ -46,9 +51,7 @@ paths:
           description: Query tags, can be multiple, matching any.
           explode: true
           schema:
-            - type: array
-              items:
-                type: string
+            type: object
         - name: debug
           in: query
           description: Internal usage, only checks instead of consuming, will always return only one record, based on query params.
@@ -62,9 +65,13 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
                   $ref: '#/components/schemas/FeedBasket'
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
   schemas:
       FeedBasket:
         type: object
@@ -90,4 +97,9 @@ components:
           cron:
             type: string
             format: cron-expression
-
+      AuthRequest:
+        type: object
+        properties:
+          name:
+            type: string
+            format: email
