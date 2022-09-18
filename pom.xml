@@ -83,6 +83,7 @@
             <plugin>
                 <groupId>org.openapitools</groupId>
                 <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>6.0.0</version>
                 <executions>
                     <execution>
                         <goals>
@@ -90,14 +91,21 @@
                         </goals>
                         <configuration>
                             <inputSpec>
-                                ${project.basedir}/src/main/resources/openapi.yml
+                                ${project.basedir}/spec/public-api.yaml
                             </inputSpec>
                             <generatorName>spring</generatorName>
-                            <apiPackage>io.tej.SwaggerCodgen.api</apiPackage>
-                            <modelPackage>io.tej.SwaggerCodgen.model</modelPackage>
-                            <supportingFilesToGenerate>
-                                ApiUtil.java
-                            </supportingFilesToGenerate>
+                            <packageName>apigen</packageName>
+                            <artifactId>feed-generated</artifactId>
+                            <groupId>br.pegoraro</groupId>
+                            <apiFirst>true</apiFirst>
+                            <reactive>true</reactive>
+                            <apiPackage>br.pegoraro.feed.api</apiPackage>
+                            <modelPackage>br.pegoraro.feed.model.api</modelPackage>
+                            <artifactDescription>Now On Twitter</artifactDescription>
+                            <artifactUrl>apps.feed.pegorarohluiz.com</artifactUrl>
+                            <apiNameSuffix>Api</apiNameSuffix>
+                            <modelNameSuffix>Dto</modelNameSuffix>
+                            <output>.</output>
                             <configOptions>
                                 <sourceFolder>src/main/java/</sourceFolder>
                                 <delegatePattern>true</delegatePattern>
