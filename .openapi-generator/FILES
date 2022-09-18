@@ -1,0 +1,6 @@
+src/main/java/br/pegoraro/feed/generated/api/ApiUtil.java
+src/main/java/br/pegoraro/feed/generated/api/AuthApi.java
+src/main/java/br/pegoraro/feed/generated/api/FeedApi.java
+src/main/java/br/pegoraro/feed/generated/api/model/AuthRequestDto.java
+src/main/java/br/pegoraro/feed/generated/api/model/FeedBasketDto.java
+src/main/java/br/pegoraro/feed/generated/api/model/FeedRequestDto.java

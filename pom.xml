@@ -99,8 +99,8 @@
                             <groupId>br.pegoraro</groupId>
                             <apiFirst>true</apiFirst>
                             <reactive>true</reactive>
-                            <apiPackage>br.pegoraro.feed.api</apiPackage>
-                            <modelPackage>br.pegoraro.feed.model.api</modelPackage>
+                            <apiPackage>br.pegoraro.feed.generated.api</apiPackage>
+                            <modelPackage>br.pegoraro.feed.generated.api.model</modelPackage>
                             <artifactDescription>Now On Twitter</artifactDescription>
                             <artifactUrl>apps.feed.pegorarohluiz.com</artifactUrl>
                             <apiNameSuffix>Api</apiNameSuffix>
