@@ -30,7 +30,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-18T13:51:13.319310308-03:00[America/Sao_Paulo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-18T21:31:07.973792343-03:00[America/Sao_Paulo]")
 @Validated
 @Tag(name = "feed", description = "the feed API")
 public interface FeedApi {
@@ -49,7 +49,7 @@ public interface FeedApi {
      * @return Display information gathered and reset counters. (status code 200)
      */
     @Operation(
-        operationId = "feedGet",
+        operationId = "consumeFeed",
         responses = {
             @ApiResponse(responseCode = "200", description = "Display information gathered and reset counters.", content = {
                 @Content(mediaType = "application/json", schema = @Schema(implementation = FeedBasketDto.class))
@@ -64,16 +64,16 @@ public interface FeedApi {
         value = "/feed",
         produces = { "application/json" }
     )
-    default ResponseEntity<List<FeedBasketDto>> _feedGet(
+    default ResponseEntity<List<FeedBasketDto>> _consumeFeed(
         @Parameter(name = "label", description = "Identification of label, will error if duplicated for the same user.") @Valid @RequestParam(value = "label", required = false) String label,
         @Parameter(name = "filter-tags", description = "Query tags, can be multiple, matching any.") @Valid @RequestParam(value = "", required = false) Object filterTags,
         @Parameter(name = "debug", description = "Internal usage, only checks instead of consuming, will always return only one record, based on query params.") @Valid @RequestParam(value = "debug", required = false) Boolean debug
     ) {
-        return feedGet(label, filterTags, debug);
+        return consumeFeed(label, filterTags, debug);
     }
 
     // Override this method
-    default  ResponseEntity<List<FeedBasketDto>> feedGet(String label, Object filterTags, Boolean debug) {
+    default  ResponseEntity<List<FeedBasketDto>> consumeFeed(String label, Object filterTags, Boolean debug) {
         getRequest().ifPresent(request -> {
             for (MediaType mediaType: MediaType.parseMediaTypes(request.getHeader("Accept"))) {
                 if (mediaType.isCompatibleWith(MediaType.valueOf("application/json"))) {
@@ -96,7 +96,7 @@ public interface FeedApi {
      * @return feed created (status code 201)
      */
     @Operation(
-        operationId = "feedPost",
+        operationId = "createFeed",
         responses = {
             @ApiResponse(responseCode = "201", description = "feed created")
         },
@@ -109,14 +109,14 @@ public interface FeedApi {
         value = "/feed",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> _feedPost(
+    default ResponseEntity<Void> _createFeed(
         @Parameter(name = "FeedRequestDto", description = "") @Valid @RequestBody(required = false) FeedRequestDto feedRequestDto
     ) {
-        return feedPost(feedRequestDto);
+        return createFeed(feedRequestDto);
     }
 
     // Override this method
-    default  ResponseEntity<Void> feedPost(FeedRequestDto feedRequestDto) {
+    default  ResponseEntity<Void> createFeed(FeedRequestDto feedRequestDto) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }

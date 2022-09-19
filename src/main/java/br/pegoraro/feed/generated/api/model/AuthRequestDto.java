@@ -20,7 +20,7 @@ import javax.annotation.Generated;
  */
 
 @JsonTypeName("AuthRequest")
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-18T13:51:13.319310308-03:00[America/Sao_Paulo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-18T21:31:07.973792343-03:00[America/Sao_Paulo]")
 public class AuthRequestDto {
 
   @JsonProperty("name")

@@ -4,10 +4,11 @@ info:
   description: |
     Allows to keep up with the latest tweets, fetching information on Twitter, based on query tags in a cron-based 
     schedule.
-  version: 1.0.0-A
+  version: 0.0.1
 paths:
   /auth:
     post:
+      operationId: Authenticate
       description: | 
         Based on the name you provide, all feed will fall under your name in searches. Will hash within storage.
       requestBody:
@@ -21,6 +22,7 @@ paths:
             Will return a token that will be on for 24h or 7d based on extent provided
   /feed:
     post:
+      operationId: CreateFeed
       security:
         - bearerAuth: []
       description: |
@@ -35,6 +37,7 @@ paths:
         '201':
           description: feed created
     get:
+      operationId: ConsumeFeed
       security:
         - bearerAuth: []
       description: |

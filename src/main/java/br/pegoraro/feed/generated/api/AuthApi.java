@@ -29,7 +29,7 @@ import java.util.Map;
 import java.util.Optional;
 import javax.annotation.Generated;
 
-@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-18T13:51:13.319310308-03:00[America/Sao_Paulo]")
+@Generated(value = "org.openapitools.codegen.languages.SpringCodegen", date = "2022-09-18T21:31:07.973792343-03:00[America/Sao_Paulo]")
 @Validated
 @Tag(name = "auth", description = "the auth API")
 public interface AuthApi {
@@ -46,7 +46,7 @@ public interface AuthApi {
      * @return Will return a token that will be on for 24h or 7d based on extent provided  (status code 200)
      */
     @Operation(
-        operationId = "authPost",
+        operationId = "authenticate",
         responses = {
             @ApiResponse(responseCode = "200", description = "Will return a token that will be on for 24h or 7d based on extent provided ")
         }
@@ -56,14 +56,14 @@ public interface AuthApi {
         value = "/auth",
         consumes = { "application/json" }
     )
-    default ResponseEntity<Void> _authPost(
+    default ResponseEntity<Void> _authenticate(
         @Parameter(name = "AuthRequestDto", description = "") @Valid @RequestBody(required = false) AuthRequestDto authRequestDto
     ) {
-        return authPost(authRequestDto);
+        return authenticate(authRequestDto);
     }
 
     // Override this method
-    default  ResponseEntity<Void> authPost(AuthRequestDto authRequestDto) {
+    default  ResponseEntity<Void> authenticate(AuthRequestDto authRequestDto) {
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
 
     }
