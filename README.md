@@ -6,7 +6,7 @@ check `src/main/resources/public-api.yaml` for usage.
 
 ## TODO list
 - [x] Open API
-- [ ] Authentication
 - [ ] Storage
+- [ ] Authentication
 - [ ] Service
 - [ ] Twitter Integration

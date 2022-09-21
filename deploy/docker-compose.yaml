@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  postgresdb:
+    image: postgres:latest
+    volumes:
+      - ./data/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    networks:
+      twitterfeed:
+  feed:
+    build: .
+    #command: ["java","-jar","/app.jar"]
+    ports:
+      - "8011:8080"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - LOG_LEVEL=${LOG_LEVEL}
+    depends_on:
+      postgresdb:
+        condition: service_healthy
+    networks:
+      twitterfeed:
+networks:
+  twitterfeed:
